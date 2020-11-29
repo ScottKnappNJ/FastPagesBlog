@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Portfolio Diversification | Scott’s Data Science Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Portfolio Diversification" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Portfolio-Diversification.html" />
+<meta property="og:url" content="https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Portfolio-Diversification.html" />
+<meta property="og:site_name" content="Scott’s Data Science Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-29T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"An easy to use blogging platform with support for Jupyter Notebooks.","url":"https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Portfolio-Diversification.html","@type":"BlogPosting","headline":"Portfolio Diversification","dateModified":"2020-11-29T00:00:00-06:00","datePublished":"2020-11-29T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Portfolio-Diversification.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/FastPagesBlog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://scottknappnj.github.io/FastPagesBlog/feed.xml" title="Scott's Data Science Blog" /><link rel="shortcut icon" type="image/x-icon" href="/FastPagesBlog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/FastPagesBlog/">Scott&#39;s Data Science Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/FastPagesBlog/about/">About Me</a><a class="page-link" href="/FastPagesBlog/search/">Search</a><a class="page-link" href="/FastPagesBlog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Portfolio Diversification</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-29T00:00:00-06:00" itemprop="datePublished">
+        Nov 29, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ScottKnappNJ/FastPagesBlog/tree/master/_notebooks/2020-11-29-Portfolio-Diversification.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/ScottKnappNJ/FastPagesBlog/master?filepath=_notebooks%2F2020-11-29-Portfolio-Diversification.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/ScottKnappNJ/FastPagesBlog/blob/master/_notebooks/2020-11-29-Portfolio-Diversification.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-11-29-Portfolio-Diversification.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Outline">Outline<a class="anchor-link" href="#Outline"> </a></h2><ul>
+<li><p>Executive Summary</p>
+</li>
+<li><p>Background</p>
+<ul>
+<li>Amount invested in traditional cap_weighted products</li>
+</ul>
+</li>
+<li>// Obtain the data<ul>
+<li>// Fame French - 49 industries from 1/1/2000 to today<ul>
+<li>// Obtain the files</li>
+<li>// Import the data</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Alternative appraoches</p>
+<ul>
+<li>// Cap-weighted</li>
+<li>Equal-weighted<ul>
+<li>Equal-weighted - adjusted for small sectors</li>
+</ul>
+</li>
+<li>Discuss problem with Maximum Sharpe Ratio Portfolio with a simple example</li>
+<li>Global Minimum Variance<ul>
+<li>with sample Covariance</li>
+<li>with Shrinking Covariance</li>
+<li>with Min and Mix constraints</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>For each approach discuss:</p>
+<ul>
+<li>the intuitive background:</li>
+<li>the math</li>
+<li>display the summary stats</li>
+<li>Effective number of constiuents</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Executive-Summary">Executive Summary<a class="anchor-link" href="#Executive-Summary"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Setup-and-Imports">Setup and Imports<a class="anchor-link" href="#Setup-and-Imports"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Data">The Data<a class="anchor-link" href="#The-Data"> </a></h2><p>Dartmouth College, through their Fama-French Data Library, offers an extensive array of raw data and factor portfolios going back to 1926.  We will be utilizing the 49 Industry Portfolio dataset, analzying monthly data from January, 2000 to September, 2020.  This time period will encompass 3 full market cycles, which will enable a more robust analysis of the various allocation methodologies.</p>
+<p>The data can be downloaded here: <a href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We wil begin by importing monthly return data for both the value-weighted and equal-weighted industry portfolios.  These portfolios denote the weighting of the individual securities in each industry.  For example, if there are 44 firms in the <code>Cnstr</code> industry, the equal-weighted portfolio will assume an allocation of $\frac{1}{44}$, or more generally $\frac{1}{N}$, to each firm.</p>
+<p>Additionally, we will import the datasets for both the average firm size in each industry and the number of firms in each industry to be able to calculate a cap-weighted (value-weighted) index.</p>
+<ul>
+<li>(This is not to be confused with the above. First, we separate how each industry is weighted; value vs equal, then we determine how we allocate to each industry, value vs equal).</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m_vw_rets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ind49_m_vw_rets.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="c1"># convert the index to equal the date, for time-series analysis</span>
+<span class="n">m_vw_rets</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">m_vw_rets</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y%m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="c1"># eliminate white space in column names for easier indexing</span>
+<span class="n">m_vw_rets</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">m_vw_rets</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">m_vw_rets</span> <span class="o">=</span> <span class="n">m_vw_rets</span><span class="p">[</span><span class="s2">&quot;2000&quot;</span><span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Industries that this dataset uses are:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m_vw_rets</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;Agric&#39;, &#39;Food&#39;, &#39;Soda&#39;, &#39;Beer&#39;, &#39;Smoke&#39;, &#39;Toys&#39;, &#39;Fun&#39;, &#39;Books&#39;,
+       &#39;Hshld&#39;, &#39;Clths&#39;, &#39;Hlth&#39;, &#39;MedEq&#39;, &#39;Drugs&#39;, &#39;Chems&#39;, &#39;Rubbr&#39;, &#39;Txtls&#39;,
+       &#39;BldMt&#39;, &#39;Cnstr&#39;, &#39;Steel&#39;, &#39;FabPr&#39;, &#39;Mach&#39;, &#39;ElcEq&#39;, &#39;Autos&#39;, &#39;Aero&#39;,
+       &#39;Ships&#39;, &#39;Guns&#39;, &#39;Gold&#39;, &#39;Mines&#39;, &#39;Coal&#39;, &#39;Oil&#39;, &#39;Util&#39;, &#39;Telcm&#39;,
+       &#39;PerSv&#39;, &#39;BusSv&#39;, &#39;Hardw&#39;, &#39;Softw&#39;, &#39;Chips&#39;, &#39;LabEq&#39;, &#39;Paper&#39;, &#39;Boxes&#39;,
+       &#39;Trans&#39;, &#39;Whlsl&#39;, &#39;Rtail&#39;, &#39;Meals&#39;, &#39;Banks&#39;, &#39;Insur&#39;, &#39;RlEst&#39;, &#39;Fin&#39;,
+       &#39;Other&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m_ew_rets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ind49_m_ew_rets.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="n">m_ew_rets</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">m_ew_rets</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y%m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="n">m_ew_rets</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">m_ew_rets</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">m_ew_rets</span> <span class="o">=</span> <span class="n">m_ew_rets</span><span class="p">[</span><span class="s2">&quot;2000&quot;</span><span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ind_size</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ind49_m_size.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ind_size</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ind_size</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y%m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="n">ind_size</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">ind_size</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">ind_size</span> <span class="o">=</span> <span class="n">ind_size</span><span class="p">[</span><span class="s2">&quot;2000&quot;</span><span class="p">:]</span>
+
+<span class="n">ind_nfirms</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="s1">&#39;data/ind49_m_nfirms.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ind_nfirms</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ind_nfirms</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y%m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="n">ind_nfirms</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">ind_nfirms</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">ind_nfirms</span> <span class="o">=</span> <span class="n">ind_nfirms</span><span class="p">[</span><span class="s2">&quot;2000&quot;</span><span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's write a quick function to calculate the value_weighted portfolio monthly returns for both equal-weighted industries and value_weighted industries. And calculate both value-weighted and equal-weigthed total portfolios.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">value_weighted_returns</span><span class="p">(</span><span class="n">ind_returns</span><span class="p">,</span> <span class="n">ind_size</span><span class="p">,</span> <span class="n">ind_nfirms</span><span class="p">):</span>
+    <span class="c1"># Calculate the market cap for each industry</span>
+    <span class="n">ind_mktcap</span> <span class="o">=</span> <span class="n">ind_size</span> <span class="o">*</span> <span class="n">ind_nfirms</span>
+    <span class="c1"># Colculate the total market cap for all industries</span>
+    <span class="n">total_mktcap</span> <span class="o">=</span> <span class="n">ind_mktcap</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>   
+    <span class="c1"># Calculate the weighting of each industry in the total market cap</span>
+    <span class="n">ind_cap_wgt</span> <span class="o">=</span> <span class="n">ind_mktcap</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">total_mktcap</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="s2">&quot;rows&quot;</span><span class="p">)</span>
+    <span class="c1"># Calcualte the total market return for each period</span>
+    <span class="n">total_market_return</span> <span class="o">=</span> <span class="p">(</span><span class="n">ind_cap_wgt</span> <span class="o">*</span> <span class="n">ind_returns</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">total_market_return</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m_vw_vw_rets</span> <span class="o">=</span> <span class="n">value_weighted_returns</span><span class="p">(</span><span class="n">m_vw_rets</span><span class="p">,</span> <span class="n">ind_size</span><span class="p">,</span> <span class="n">ind_nfirms</span><span class="p">)</span>
+
+<span class="c1"># Calculate the value-weighted portfolio market returns for the equal-weighted industries</span>
+<span class="n">m_vw_ew_rets</span> <span class="o">=</span> <span class="n">value_weighted_returns</span><span class="p">(</span><span class="n">m_ew_rets</span><span class="p">,</span> <span class="n">ind_size</span><span class="p">,</span> <span class="n">ind_nfirms</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m_ew_vw_rets</span> <span class="o">=</span> <span class="n">m_vw_rets</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calculate the equal-weighted portfolios returns for the equal-weigthed industries</span>
+<span class="n">m_ew_ew_rets</span> <span class="o">=</span> <span class="n">m_ew_rets</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">returns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Value-Weighted - EW Port&quot;</span><span class="p">:</span> <span class="n">m_vw_ew_rets</span><span class="p">,</span>
+    <span class="s2">&quot;Value-Weighted - VW Port&quot;</span><span class="p">:</span> <span class="n">m_vw_vw_rets</span><span class="p">,</span>
+    <span class="s2">&quot;Equal-Weighted - EW Port&quot;</span><span class="p">:</span> <span class="n">m_ew_ew_rets</span><span class="p">,</span>
+    <span class="s2">&quot;Equal-Weighted - VW Port&quot;</span><span class="p">:</span> <span class="n">m_ew_vw_rets</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">returns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Value-Weighted - EW Port</th>
+      <th>Value-Weighted - VW Port</th>
+      <th>Equal-Weighted - EW Port</th>
+      <th>Equal-Weighted - VW Port</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000-01</th>
+      <td>0.070894</td>
+      <td>-0.040130</td>
+      <td>0.044173</td>
+      <td>-0.033673</td>
+    </tr>
+    <tr>
+      <th>2000-02</th>
+      <td>0.188816</td>
+      <td>0.019456</td>
+      <td>0.090876</td>
+      <td>-0.021078</td>
+    </tr>
+    <tr>
+      <th>2000-03</th>
+      <td>-0.005319</td>
+      <td>0.074055</td>
+      <td>0.022084</td>
+      <td>0.076998</td>
+    </tr>
+    <tr>
+      <th>2000-04</th>
+      <td>-0.113548</td>
+      <td>-0.045298</td>
+      <td>-0.056082</td>
+      <td>-0.003986</td>
+    </tr>
+    <tr>
+      <th>2000-05</th>
+      <td>-0.070897</td>
+      <td>-0.030830</td>
+      <td>-0.040545</td>
+      <td>-0.016059</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2020-05</th>
+      <td>0.085765</td>
+      <td>0.055291</td>
+      <td>0.069798</td>
+      <td>0.055661</td>
+    </tr>
+    <tr>
+      <th>2020-06</th>
+      <td>0.069212</td>
+      <td>0.023037</td>
+      <td>0.073351</td>
+      <td>0.018688</td>
+    </tr>
+    <tr>
+      <th>2020-07</th>
+      <td>0.057484</td>
+      <td>0.058037</td>
+      <td>0.060947</td>
+      <td>0.060033</td>
+    </tr>
+    <tr>
+      <th>2020-08</th>
+      <td>0.051738</td>
+      <td>0.077836</td>
+      <td>0.051535</td>
+      <td>0.065782</td>
+    </tr>
+    <tr>
+      <th>2020-09</th>
+      <td>-0.029560</td>
+      <td>-0.036431</td>
+      <td>-0.023606</td>
+      <td>-0.017476</td>
+    </tr>
+  </tbody>
+</table>
+<p>249 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will create some summary statistics to compare these portfolios.</p>
+<ul>
+<li>Annualized Returns</li>
+<li>Annualized Standard Deviation</li>
+<li>Sharpe Ratio</li>
+<li>Drawdown</li>
+<li>Skewness</li>
+<li>Kurtosis</li>
+<li>Histroic VaR (5%)</li>
+<li>Cornish-Fisher VaR</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">annualize_rets</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="c1"># compound each years&#39; return at 1+r</span>
+    <span class="n">compounded_growth</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">returns</span><span class="p">)</span><span class="o">.</span><span class="n">prod</span><span class="p">()</span>
+    <span class="c1"># calculate the number of periods in ind_returns</span>
+    <span class="n">n_periods</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">compounded_growth</span> <span class="o">**</span> <span class="p">(</span><span class="n">periods_per_year</span> <span class="o">/</span> <span class="n">n_periods</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">annualize_stdev</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">returns</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">periods_per_year</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sharpe_ratio</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="n">rf_per_period</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">risk_free_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">periods_per_year</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">excess_ret</span> <span class="o">=</span> <span class="n">returns</span> <span class="o">-</span> <span class="n">rf_per_period</span>
+    <span class="n">ann_ex_ret</span> <span class="o">=</span> <span class="n">annualize_rets</span><span class="p">(</span><span class="n">excess_ret</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="p">)</span>
+    <span class="n">ann_sd</span> <span class="o">=</span> <span class="n">annualize_stdev</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">ann_ex_ret</span> <span class="o">/</span> <span class="n">ann_sd</span>
+
+<span class="k">def</span> <span class="nf">max_drawdown</span><span class="p">(</span><span class="n">returns</span><span class="p">):</span>
+    <span class="c1"># calculate the accumulated growth at each period</span>
+    <span class="n">compounded_growth</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">returns</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+    <span class="c1"># calculate the previous peak value at each period</span>
+    <span class="n">previous_peaks</span> <span class="o">=</span> <span class="n">compounded_growth</span><span class="o">.</span><span class="n">cummax</span><span class="p">()</span>
+    <span class="c1"># calculate the drawdowns at each period</span>
+    <span class="n">drawdowns</span> <span class="o">=</span> <span class="p">(</span><span class="n">compounded_growth</span> <span class="o">-</span> <span class="n">previous_peaks</span><span class="p">)</span> <span class="o">/</span> <span class="n">previous_peaks</span>
+    
+    <span class="k">return</span> <span class="o">-</span><span class="n">drawdowns</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="n">returns</span><span class="p">):</span>
+    <span class="c1"># calculate each period&#39;s return difference from the average return</span>
+    <span class="n">demeaned_r</span> <span class="o">=</span> <span class="n">returns</span> <span class="o">-</span> <span class="n">returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="c1"># calculate the standard devistion of the portfolio</span>
+    <span class="n">sigma_r</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># using ddof=0, to calculate population standard deviation</span>
+    <span class="c1"># caluclate the numerator in the equation</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="p">(</span><span class="n">demeaned_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">exp</span> <span class="o">/</span> <span class="n">sigma_r</span><span class="o">**</span><span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="n">returns</span><span class="p">):</span>
+    <span class="c1"># calculate each period&#39;s return difference from the average return</span>
+    <span class="n">demeaned_r</span> <span class="o">=</span> <span class="n">returns</span> <span class="o">-</span> <span class="n">returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="c1"># calculate the standard devistion of the portfolio</span>
+    <span class="n">sigma_r</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># using ddof=0, to calculate population standard deviation</span>
+    <span class="c1"># caluclate the numerator in the equation</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="p">(</span><span class="n">demeaned_r</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">exp</span> <span class="o">/</span> <span class="n">sigma_r</span><span class="o">**</span><span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">var_historic</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">var_cornish_fisher</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="c1"># compute the Z score assuming it was Gaussian</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">level</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+    
+    <span class="n">s</span> <span class="o">=</span> <span class="n">skewness</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">kurtosis</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span>
+                 <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">s</span><span class="o">/</span><span class="mi">6</span> <span class="o">+</span>
+                 <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">24</span> <span class="o">-</span>
+                 <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">36</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">returns</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">summary_stats</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
+    <span class="n">summary_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;Annualized Return&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">annualize_rets</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="o">=</span><span class="n">periods_per_year</span><span class="p">),</span>
+        <span class="s2">&quot;Annualized Vol&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">annualize_stdev</span><span class="p">,</span> <span class="n">periods_per_year</span><span class="o">=</span><span class="n">periods_per_year</span><span class="p">),</span>
+        <span class="s2">&quot;Sharpe Ratio&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">sharpe_ratio</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="o">=</span><span class="n">risk_free_rate</span><span class="p">,</span> 
+                                              <span class="n">periods_per_year</span><span class="o">=</span><span class="n">periods_per_year</span><span class="p">),</span>
+        <span class="s2">&quot;Max Drawdown&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">max_drawdown</span><span class="p">),</span>
+        <span class="s2">&quot;Skewness&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">skewness</span><span class="p">),</span>
+        <span class="s2">&quot;Kurtosis&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">kurtosis</span><span class="p">),</span>
+        <span class="s2">&quot;Historic 5% VaR&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">var_historic</span><span class="p">),</span>
+        <span class="s2">&quot;CF 5% VaR&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">var_cornish_fisher</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">summary_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">summary_stats</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Annualized Return</th>
+      <th>Annualized Vol</th>
+      <th>Sharpe Ratio</th>
+      <th>Max Drawdown</th>
+      <th>Skewness</th>
+      <th>Kurtosis</th>
+      <th>Historic 5% VaR</th>
+      <th>CF 5% VaR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Value-Weighted - EW Port</th>
+      <td>0.091434</td>
+      <td>0.216458</td>
+      <td>0.323901</td>
+      <td>0.583520</td>
+      <td>-0.067811</td>
+      <td>4.919207</td>
+      <td>0.093561</td>
+      <td>0.092089</td>
+    </tr>
+    <tr>
+      <th>Value-Weighted - VW Port</th>
+      <td>0.066911</td>
+      <td>0.154981</td>
+      <td>0.297115</td>
+      <td>0.500088</td>
+      <td>-0.568248</td>
+      <td>3.966089</td>
+      <td>0.078383</td>
+      <td>0.073090</td>
+    </tr>
+    <tr>
+      <th>Equal-Weighted - EW Port</th>
+      <td>0.101640</td>
+      <td>0.207453</td>
+      <td>0.386287</td>
+      <td>0.598352</td>
+      <td>-0.271297</td>
+      <td>5.841772</td>
+      <td>0.087737</td>
+      <td>0.089501</td>
+    </tr>
+    <tr>
+      <th>Equal-Weighted - VW Port</th>
+      <td>0.088844</td>
+      <td>0.165339</td>
+      <td>0.408761</td>
+      <td>0.528351</td>
+      <td>-0.642084</td>
+      <td>5.549245</td>
+      <td>0.079556</td>
+      <td>0.075951</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/FastPagesBlog/2020/11/29/Portfolio-Diversification.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/FastPagesBlog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/FastPagesBlog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ScottKnappNJ" title="ScottKnappNJ"><svg class="svg-icon grey"><use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/scotknap" title="scotknap"><svg class="svg-icon grey"><use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
