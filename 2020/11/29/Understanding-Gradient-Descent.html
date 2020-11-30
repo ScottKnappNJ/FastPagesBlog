@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Understanding Gradient Descent | Scott’s Data Science Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Understanding Gradient Descent" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Understanding-Gradient-Descent.html" />
+<meta property="og:url" content="https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Understanding-Gradient-Descent.html" />
+<meta property="og:site_name" content="Scott’s Data Science Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-29T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"An easy to use blogging platform with support for Jupyter Notebooks.","url":"https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Understanding-Gradient-Descent.html","@type":"BlogPosting","headline":"Understanding Gradient Descent","dateModified":"2020-11-29T00:00:00-06:00","datePublished":"2020-11-29T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://scottknappnj.github.io/FastPagesBlog/2020/11/29/Understanding-Gradient-Descent.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/FastPagesBlog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://scottknappnj.github.io/FastPagesBlog/feed.xml" title="Scott's Data Science Blog" /><link rel="shortcut icon" type="image/x-icon" href="/FastPagesBlog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/FastPagesBlog/">Scott&#39;s Data Science Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/FastPagesBlog/about/">About Me</a><a class="page-link" href="/FastPagesBlog/search/">Search</a><a class="page-link" href="/FastPagesBlog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Understanding Gradient Descent</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-29T00:00:00-06:00" itemprop="datePublished">
+        Nov 29, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ScottKnappNJ/FastPagesBlog/tree/master/_notebooks/2020-11-29-Understanding-Gradient-Descent.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/ScottKnappNJ/FastPagesBlog/master?filepath=_notebooks%2F2020-11-29-Understanding-Gradient-Descent.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/ScottKnappNJ/FastPagesBlog/blob/master/_notebooks/2020-11-29-Understanding-Gradient-Descent.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-11-29-Understanding-Gradient-Descent.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install -Uqq fastbook
+<span class="kn">import</span> <span class="nn">fastbook</span>
+<span class="n">fastbook</span><span class="o">.</span><span class="n">setup_book</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastai.vision.all</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">fastbook</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In recent years, with the increase in computing speed, increaed access to GPUs (Graphics Processing Unit) and enhanced machine learning libraries, Gradient descent has become an intergral part of many machine learning and deep learning processes, especially those associated with Neural Networks.</p>
+<p>We will begin by defining what Gradient Descent is, why it is useful and how it is used in practice.  We will illustrate this with a simple example.  This example if from the fastai course and book <em>Deep Learning for Coders with fastai and PyTorch</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-Gradient-Descent?">What is Gradient Descent?<a class="anchor-link" href="#What-is-Gradient-Descent?"> </a></h2><p>Let's start by defining what a gradient.  If you remember back to high school calculus, a derivative of a function calculates the rate of change of a function at a specific point (rise / run).  It tells you how much the output changes if you change the inputs a tiny bit.</p>
+<p>Well, when you have a bunch of variables in an equation, you will need to know how much the output changes if you change each of these variables a tiny bit.  This is done by calculating the partial derivatives with respect to each of the variables.  And the gradient is the vector which basically stores all of this information.</p>
+<p>Gradient Descent is simply the algorithm that uses this information to update a model's parameters a little at a time improving its' predictive ability.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-Simple-Example">A Simple Example<a class="anchor-link" href="#A-Simple-Example"> </a></h2><p>Let's look at an example of the fictional equation of the speed of a roller coaster going over a hill for a period of time, 20.  Using PyTorch's <code>arange</code> method we can create a sequence from 0-19 for this example.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">time</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19.])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will then simply create a random function which has the speed decreasing to 0 at the midpoint and increasing again after.  We will also add some random noise using <code>randn</code>.  And we will graph what the function looks like.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">speed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.6</span><span class="o">*</span><span class="p">(</span><span class="n">time</span><span class="o">-</span><span class="mf">9.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">speed</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will estimate that the function is a quadratic is the form
+$ a t^2 + bt + c$ and will look to solve for a, b, c.  Let's define the function.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How will we know if our estimated paramters are good or not?  We need to create a loss function that calculates the error rate of our predictions against the actual data.  In our case, we will use a simple Mean Squared Error loss function.  To calculate this, we simply:</p>
+<p>1) Calculate the difference between our predictions and our target values<br />
+2) Square the difference<br />
+3) Take a mean of the Squared differences.</p>
+<p>This is the loss function that we will use Gradient Descent to minimize.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">preds</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Seven-Step-Process">Seven-Step Process<a class="anchor-link" href="#Seven-Step-Process"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we begin the process of Gradient Descent, which involves seven-steps.</p>
+<p>1) Initialize the parameters<br />
+2) Calculate the predictions<br />
+3) Calculate the loss<br />
+4) Calculate the gradients<br />
+5) Step the weights<br />
+6) Repeat steps 2) through 5)<br />
+7) Stop the process</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-1:-Initialize-the-Parameters">Step 1: Initialize the Parameters<a class="anchor-link" href="#Step-1:-Initialize-the-Parameters"> </a></h4><p>We begin by setting the initial values for our parameters.  We will do so in a simple random manner utilizing <code>randn</code> again.</p>
+<p>We will also add the method <code>.requires_grad_()</code>.  This tells PyTorch that remember the necessary information so that we can later calculate the gradients with respect to these parameters.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-2:-Calculate-the-Predictions">Step 2: Calculate the Predictions<a class="anchor-link" href="#Step-2:-Calculate-the-Predictions"> </a></h4><p>In this step, we will calculate the predictions based on our current parameter estimates.  We will also write a quick function to view our targets results along with our current estimates.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">show_preds</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">to_np</span><span class="p">(</span><span class="n">preds</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  <span class="c1"># to_np() converts a tensor to an array</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">show_preds</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These predictions look pretty terrible.  But hopefully, our Gradient Descent algorithm will help improve these results</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-3:-Calculate-the-loss">Step 3: Calculate the loss<a class="anchor-link" href="#Step-3:-Calculate-the-loss"> </a></h4><p>In this step, we will simply calcualte the loss using our <code>mse</code> function that we previously created.  As you can see from the output, the information for the gradient is also created along with the result.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+<span class="n">loss</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor(4406.9209, grad_fn=&lt;MeanBackward0&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-4:-Calculate-the-gradients">Step 4: Calculate the gradients<a class="anchor-link" href="#Step-4:-Calculate-the-gradients"> </a></h4><p>In this step, we will calculate the gradients.  And thankfully, we won't have to do this calcuation manually, PyTorch does this all on its' own.  And as you can see from the results, it returns the gradient for each of our parameters.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="n">params</span><span class="o">.</span><span class="n">grad</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([-21275.2949,  -1369.6201,   -108.7108])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-5:-Step-the-parameters">Step 5: Step the parameters<a class="anchor-link" href="#Step-5:-Step-the-parameters"> </a></h4><p>Here, we will update the parameters of our model, but how?  From the last step we know how much our loss function will change as we change our parameters, but how much should we adjust them by?  If we adjust our parameters too fast, we run the risk of overshooting our optimal solution and simply bouncing back and forth and never converging to an answer.  If we adjust our parameters too slowly, it will take a long time to converge to an optimal solution.  Additionally, we may be fooled if there are local minimums in the function and if we see the loss going back up, we may interpret that as an incorrect global minimum.</p>
+<p>The number that we use as a scalar of the gradients is called the <strong>learning rate</strong>.  There is no answer as to what the correct learning rate is, this can be a tunable parameter in the model, where we can try a few different rates and choose the best performing one.  For this purpose, we will use 1e-5 as our learning rate.</p>
+<p>Another step with we need to do after adjusting the parameters is to zero-out the gradients for our next iteration, as PyTorch we simply add any calculated gradients to the existing ones.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lr</span> <span class="o">=</span> <span class="mf">1e-5</span>
+<span class="n">params</span><span class="o">.</span><span class="n">data</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">params</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span>
+<span class="n">params</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-6:-Repeat-the-process">Step 6: Repeat the process<a class="anchor-link" href="#Step-6:-Repeat-the-process"> </a></h4><p>Here, we will go back to step #2 and #3.  We will make the predictions with our new parameters and calculate the loss and visualize our new predictions.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+<span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor(1145.6825, grad_fn=&lt;MeanBackward0&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">show_preds</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We've improved our Mean Squared Error from 4,406 to 1,145. Not too bad, for only updating the parameters once.  Let's write a function including everything we've done so far, so we can repeat the process a few more times.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">apply_step</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">prn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">data</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">params</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">prn</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">preds</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">apply_step</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1145.6824951171875
+528.5543212890625
+411.7728576660156
+389.67218017578125
+385.4880065917969
+384.6941833496094
+384.54205322265625
+384.5111999511719
+384.50335693359375
+384.499755859375
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Step-7:-Stop-the-process">Step 7: Stop the process<a class="anchor-link" href="#Step-7:-Stop-the-process"> </a></h4><p>We have decided to stop after an additional 10 epochs arbitrarily.  In practice, we would likely watch the loss function and our metrics to decide when to step.  But here we have seen our Mean Squared Error be reduced from 4,406 to 385, in only 6 epochs.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h2><p>From this simple example, I think you can begin to see the power of using the Gradient Descent algorithm to update model paramters to improve performance.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/FastPagesBlog/2020/11/29/Understanding-Gradient-Descent.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/FastPagesBlog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/FastPagesBlog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ScottKnappNJ" title="ScottKnappNJ"><svg class="svg-icon grey"><use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/scotknap" title="scotknap"><svg class="svg-icon grey"><use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
