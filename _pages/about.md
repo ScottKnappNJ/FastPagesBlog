@@ -22,10 +22,10 @@ experience in the finanical markets and starting my own Financial Planning pract
 The old saying, 'you don't know what you don't know' was never more true, and that first year was filled with starts and stops as I learned the industry and redefined 
 what type of practice I wanted to create.  The end result was to be a planning-first practice, which was product and company agnostic, and used deep comprehensive planning
 in a variety of areas (Retirement, Investment, Tax, Insurance and Estate) to drive recommendations for the clients.  Over the next few years, I developed a 
-great deal of knowledge in all of those areas and experience some levels of success, but the point came where an unfortunate realization had to be made.  This 
-realization was that success in the financial advisory arena, is not determined by the knowledge of your craft or the quality of the work you perform, but how well 
-you can sell.  And while I consider myself a very good planner, and a good relatoionship manager, if I'm being honest I am a mediocre sales person.  Then the opportunity 
-arose to sell my practice and I had to make that difficult choice of selling.  Then Covid hit.
+great deal of knowledge in all of those areas and experience some levels of success and acquired my CFA certification, but the point came where an unfortunate 
+realization had to be made.  This realization was that success in the financial advisory arena, is not determined by the knowledge of your craft or the quality of 
+the work you perform, but how well you can sell.  And while I consider myself a very good planner, and a good relatoionship manager, if I'm being honest I am a 
+mediocre sales person.  Then the opportunity arose to sell my practice and I had to make that difficult choice of selling.  Then Covid hit.
 
 While job-seeking became difficult, this gave me the opporunity to dive head first into learning to code with a focus on Data Science.  It began with the 10-course 
 specialization offered by John Hopkins through Coursera.  This course is taught in the R language, which for me was a great initital foray to learning programming while
@@ -43,6 +43,9 @@ near-term goal of all of this is to be able to find a role to in the Data Scienc
 continuing to develop these newly acquired skills.
 
 I hope you enjoy reading about my journey.
+
+
+
 
 
 
