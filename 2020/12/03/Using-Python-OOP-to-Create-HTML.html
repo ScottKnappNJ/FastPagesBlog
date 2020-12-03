@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using Python OOP to Create HTML Code | Scott’s Data Science Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Using Python OOP to Create HTML Code" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://scottknappnj.github.io/FastPagesBlog/2020/12/03/Using-Python-OOP-to-Create-HTML.html" />
+<meta property="og:url" content="https://scottknappnj.github.io/FastPagesBlog/2020/12/03/Using-Python-OOP-to-Create-HTML.html" />
+<meta property="og:site_name" content="Scott’s Data Science Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-03T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"An easy to use blogging platform with support for Jupyter Notebooks.","url":"https://scottknappnj.github.io/FastPagesBlog/2020/12/03/Using-Python-OOP-to-Create-HTML.html","@type":"BlogPosting","headline":"Using Python OOP to Create HTML Code","dateModified":"2020-12-03T00:00:00-06:00","datePublished":"2020-12-03T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://scottknappnj.github.io/FastPagesBlog/2020/12/03/Using-Python-OOP-to-Create-HTML.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/FastPagesBlog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://scottknappnj.github.io/FastPagesBlog/feed.xml" title="Scott's Data Science Blog" /><link rel="shortcut icon" type="image/x-icon" href="/FastPagesBlog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/FastPagesBlog/">Scott&#39;s Data Science Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/FastPagesBlog/about/">About Me</a><a class="page-link" href="/FastPagesBlog/search/">Search</a><a class="page-link" href="/FastPagesBlog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Using Python OOP to Create HTML Code</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-03T00:00:00-06:00" itemprop="datePublished">
+        Dec 3, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/ScottKnappNJ/FastPagesBlog/tree/master/_notebooks/2020-12-03-Using-Python-OOP-to-Create-HTML.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/ScottKnappNJ/FastPagesBlog/master?filepath=_notebooks%2F2020-12-03-Using-Python-OOP-to-Create-HTML.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/ScottKnappNJ/FastPagesBlog/blob/master/_notebooks/2020-12-03-Using-Python-OOP-to-Create-HTML.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/FastPagesBlog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-12-03-Using-Python-OOP-to-Create-HTML.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will utilize Python's Obejct-Oriented-Programming to ease the ability to construct some simple HTML code.  First, let's take a look at what is needed for HTML. An HTML 4 documents contains three elements:</p>
+<p>1) a line containing the version information of HTML being used<br />
+2) a header section enclosed in  <head> tags<br />
+3) a body section, where contains the document's content, enclosed in <body> tags&lt;/p&gt;
+<p>Here's an example of an HTML document:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;</span>
+<span class="cp">   &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</span>
+<span class="p">&lt;</span><span class="nt">HTML</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">HEAD</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">TITLE</span><span class="p">&gt;</span>My first HTML document<span class="p">&lt;/</span><span class="nt">TITLE</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">HEAD</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">BODY</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">P</span><span class="p">&gt;</span>Hello world!
+   <span class="p">&lt;/</span><span class="nt">BODY</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">HTML</span><span class="p">&gt;</span>
+</pre></div>
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From this we can start to see what we need in order to create this simple code.</p>
+<p>We will begin by creating a <code>Tag</code> class.  We will use this class across the classes we will create below. The <code>Tag</code> class will take a <code>name</code> and <code>contents</code> as input.  From these, <code>__init__</code> will create the <code>start_tag</code>, the <code>contents</code>, and the <code>end_tag</code>.   This will allow us to create a <code>__str__</code> and <code>display</code> method to print the <code>Tag</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_tag</span> <span class="o">=</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_tag</span> <span class="o">=</span> <span class="s1">&#39;&lt;/</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">contents</span>
+        
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0.start_tag}{0.contents}{0.end_tag}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With the <code>Tag</code> class created, we can now use Inheritancce to create the following classes: <code>DocType</code>, <code>Head</code> and <code>Body</code>.</p>
+<p>The <code>DocType</code> class will be need to adjust the use of <code>Tag</code> slightly.  Using <code>super()</code> to inherit the <code>Tag</code> methods, and specify <code>name</code> as our doctype, leaving <code>contents</code> as a blank string.  We will also have to overwrite the <code>end_tag</code> to a blank string to construct the DocType correctly.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">DocType</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; http://www.w3.org/TR/html4/strict.dtd&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will create our <code>Head</code> class.  Here, we will again utilize <code>super()</code> to inherit the <code>Tag</code> class, but we will include the ability to add a <code>title</code>.  We will initialize <code>title</code> equal to <code>None</code> and include an <code>if</code> statement to include the information if provided.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Head</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_title_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s1">&#39;TITLE&#39;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_title_tag</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will continue on, creating our <code>Body</code> class.  Here, we will be including an <code>add_tag</code> method to provide the ability to include a variety of tags to the <code>Body</code>.  This will be done by appending the <code>new_tag</code> to the <code>_body_contents</code> list.  Additionally, we will have overwrite the <code>display</code> method as now, we will have to loop through the <code>_body_contents</code> list to print.</p>
+<p>This is a good place for a quick aside on the leading <code>_</code> that is used throughout the code.  By including a leading underscore, such as with <code>_body_contents</code>, Python does not display this as a potential object to be called.  It is still accessible if the user enters the full object name, but by not including displaying it as a possible object, it reduces the likelihood that a user will directly change this object.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Body</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;BODY&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body_contents</span> <span class="o">=</span> <span class="p">[]</span>
+        
+    <span class="k">def</span> <span class="nf">add_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="n">new_tag</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body_contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body_contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_tag</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_body_contents</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+            
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lastly, we will combine all these to create our <code>HtmlDoc</code> class, which will combine the use of Compositin and Aggregation.  First we will define our class as needing two inputs, <code>head</code> and <code>body</code>.  These will be instantiated and defined by the user and then fed into the <code>HtmlDoc</code> object.  The use of a created class as an input into another class is known as Aggregation.  Composition is when you use another class during the construction of the class, as we did with the <code>DocType()</code> class.  As it is unlikely, we will need the contents of <code>DocType</code> we can build it into the <code>HtmlDoc</code> construction and away from the user.</p>
+<p>We have added the <code>add_tag</code> method which allows you to add to <code>Body</code> of the document if you'd like.  And created an expanded <code>Display</code> method to produce our final code.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">HtmlDoc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_doc_type</span> <span class="o">=</span> <span class="n">DocType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body</span> <span class="o">=</span> <span class="n">body</span>
+        
+    <span class="k">def</span> <span class="nf">add_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body</span><span class="o">.</span><span class="n">add_tag</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_doc_type</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&lt;HTML&gt;&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&lt;/HTML&gt;&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we've created all the necessary classes, let's test it out.  We will display the text here, as well as create a 'test.html' file, which we can open in our browser to confirm everything is working.</p>
+<p>We include the</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</pre></div>
+<p>to ensure that if this module was imported into another one, this code isn't run.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    
+    <span class="n">new_header</span> <span class="o">=</span> <span class="n">Head</span><span class="p">(</span><span class="s1">&#39;HTML Test Document&#39;</span><span class="p">)</span>
+    <span class="n">new_body</span> <span class="o">=</span> <span class="n">Body</span><span class="p">()</span>
+    <span class="n">new_body</span><span class="o">.</span><span class="n">add_tag</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;HTML Code&#39;</span><span class="p">)</span>
+    <span class="n">new_body</span><span class="o">.</span><span class="n">add_tag</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span> <span class="s1">&#39;Using Python OOP&#39;</span><span class="p">)</span>
+    <span class="n">new_body</span><span class="o">.</span><span class="n">add_tag</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;This code uses Python OOP to create HTML Code&#39;</span><span class="p">)</span>
+    <span class="n">new_body</span><span class="o">.</span><span class="n">add_tag</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;The code utulizes the concepts of Inheritance, Composition and Aggregation&#39;</span><span class="p">)</span>
+    <span class="n">new_page</span> <span class="o">=</span> <span class="n">HtmlDoc</span><span class="p">(</span><span class="n">new_header</span><span class="p">,</span> <span class="n">new_body</span><span class="p">)</span>
+    
+    <span class="n">new_page</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">test_doc</span><span class="p">:</span>
+        <span class="n">new_page</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">test_doc</span><span class="p">)</span>
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;!DOCTYPE HTML PUBLIC &#34;-//W3C//DTD HTML 4.01//EN&#34; http://www.w3.org/TR/html4/strict.dtd&gt;&lt;/!DOCTYPE HTML PUBLIC &#34;-//W3C//DTD HTML 4.01//EN&#34; http://www.w3.org/TR/html4/strict.dtd&gt;
+&lt;HTML&gt;
+&lt;HEAD&gt;&lt;TITLE&gt;HTML Test Document&lt;/TITLE&gt;&lt;/HEAD&gt;
+&lt;BODY&gt;
+	&lt;h1&gt;HTML Code&lt;/h1&gt;
+	&lt;h2&gt;Using Python OOP&lt;/h2&gt;
+	&lt;p&gt;This code uses Python OOP to create HTML Code&lt;/p&gt;
+	&lt;p&gt;The code utulizes the concepts of Inheritance, Composition and Aggregation&lt;/p&gt;&lt;/BODY&gt;
+&lt;/HTML&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>OK.  Everything looks good.  We could do a little work on the spacing to make everything more readable, but this is simply a cosmetic issue, as HTML does not use new lines or tabs in compliing the code.  So, all-in-all, we learn a little Object-Oriented-Programming concepts while learning some HTML along the way.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>References:</p>
+<ul>
+<li><em>Learn Python Programming Masterclass</em> - Udemy - Tim Buchalka  </li>
+<li><em>The Global Structure of an HTML document</em> - <a href="https://www.w3.org/TR/html401/struct/global.html">https://www.w3.org/TR/html401/struct/global.html</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+&lt;/div&gt;
+ 
+
+</body></head></p></div></div></div></div>
+
+
+  </div><a class="u-url" href="/FastPagesBlog/2020/12/03/Using-Python-OOP-to-Create-HTML.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/FastPagesBlog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/FastPagesBlog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ScottKnappNJ" title="ScottKnappNJ"><svg class="svg-icon grey"><use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/scotknap" title="scotknap"><svg class="svg-icon grey"><use xlink:href="/FastPagesBlog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
