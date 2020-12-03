@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      5 min read
     
 </span></p>
 
@@ -137,8 +137,8 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We will utilize Python's Obejct-Oriented-Programming to ease the ability to construct some simple HTML code.  First, let's take a look at what is needed for HTML. An HTML 4 documents contains three elements:</p>
 <p>1) a line containing the version information of HTML being used<br />
-2) a header section enclosed in  <head> tags<br />
-3) a body section, where contains the document's content, enclosed in <body> tags&lt;/p&gt;
+2) a header section enclosed in  <code>&lt;HEAD&gt;</code> tags<br />
+3) a body section, where contains the document's content, enclosed in <code>&lt;BODY&gt;</code> tags</p>
 <p>Here's an example of an HTML document:</p>
 <div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;</span>
 <span class="cp">   &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</span>
@@ -152,9 +152,9 @@ window.onload = wrap_img;
 <span class="p">&lt;/</span><span class="nt">HTML</span><span class="p">&gt;</span>
 </pre></div>
 
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From this we can start to see what we need in order to create this simple code.</p>
@@ -193,8 +193,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With the <code>Tag</code> class created, we can now use Inheritancce to create the following classes: <code>DocType</code>, <code>Head</code> and <code>Body</code>.</p>
-<p>The <code>DocType</code> class will be need to adjust the use of <code>Tag</code> slightly.  Using <code>super()</code> to inherit the <code>Tag</code> methods, and specify <code>name</code> as our doctype, leaving <code>contents</code> as a blank string.  We will also have to overwrite the <code>end_tag</code> to a blank string to construct the DocType correctly.</p>
+<p>With the <code>Tag</code> class created, we can now use Inheritance to create the following classes: <code>DocType</code>, <code>Head</code> and <code>Body</code>.</p>
+<p>The <code>DocType</code> class will need to adjust the use of <code>Tag</code> slightly.  Using <code>super()</code> to inherit the <code>Tag</code> methods, we specify <code>name</code> as our doctype, leaving <code>contents</code> as a blank string.  We will also have to overwrite the <code>end_tag</code> to a blank string to construct the DocType correctly.</p>
 
 </div>
 </div>
@@ -251,8 +251,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We will continue on, creating our <code>Body</code> class.  Here, we will be including an <code>add_tag</code> method to provide the ability to include a variety of tags to the <code>Body</code>.  This will be done by appending the <code>new_tag</code> to the <code>_body_contents</code> list.  Additionally, we will have overwrite the <code>display</code> method as now, we will have to loop through the <code>_body_contents</code> list to print.</p>
-<p>This is a good place for a quick aside on the leading <code>_</code> that is used throughout the code.  By including a leading underscore, such as with <code>_body_contents</code>, Python does not display this as a potential object to be called.  It is still accessible if the user enters the full object name, but by not including displaying it as a possible object, it reduces the likelihood that a user will directly change this object.</p>
+<p>We will continue on, creating our <code>Body</code> class.  Here, we will be including an <code>add_tag</code> method to provide the ability to include a variety of tags to the <code>Body</code>.  This will be done by appending the <code>new_tag</code> to the <code>_body_contents</code> list.  Additionally, we will have to overwrite the <code>display</code> method as now, we will have to loop through the <code>_body_contents</code> list to print.</p>
+<p>This is a good place for a quick aside on the leading <code>_</code> that is used throughout the code.  By including a leading underscore, such as with <code>_body_contents</code>, Python does not display this as a potential object to be called.  It is still accessible if the user enters the full object name, but by not displaying it as a possible object, it reduces the likelihood that a user will directly change this object.</p>
 
 </div>
 </div>
@@ -291,7 +291,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Lastly, we will combine all these to create our <code>HtmlDoc</code> class, which will combine the use of Compositin and Aggregation.  First we will define our class as needing two inputs, <code>head</code> and <code>body</code>.  These will be instantiated and defined by the user and then fed into the <code>HtmlDoc</code> object.  The use of a created class as an input into another class is known as Aggregation.  Composition is when you use another class during the construction of the class, as we did with the <code>DocType()</code> class.  As it is unlikely, we will need the contents of <code>DocType</code> we can build it into the <code>HtmlDoc</code> construction and away from the user.</p>
+<p>Lastly, we will combine all these to create our <code>HtmlDoc</code> class, which will combine the use of Composition and Aggregation.  First we will define our class as needing two inputs, <code>head</code> and <code>body</code>.  These will be instantiated and defined by the user and then fed into the <code>HtmlDoc</code> object.  The use of a created class as an input into another class is known as Aggregation.  Composition is when you use another class during the construction of the class, as we will do with the <code>DocType()</code> class.  We set the <code>doc_type</code> this way as it is unlikely that we will need to amend the contents of <code>DocType</code> so we can hard-code it into the <code>HtmlDoc</code> construction and away from the user.</p>
 <p>We have added the <code>add_tag</code> method which allows you to add to <code>Body</code> of the document if you'd like.  And created an expanded <code>Display</code> method to produce our final code.</p>
 
 </div>
@@ -411,10 +411,8 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-&lt;/div&gt;
- 
+</div>
 
-</body></head></p></div></div></div></div>
 
 
   </div><a class="u-url" href="/FastPagesBlog/2020/12/03/Using-Python-OOP-to-Create-HTML.html" hidden></a>
